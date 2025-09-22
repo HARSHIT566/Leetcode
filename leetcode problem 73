@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        int colu = 1;  // flag for first column
+
+        // Step 1: use first row & column as markers
+        for (int i = 0; i < n; i++) {
+            if (matrix[i][0] == 0) colu = 0;  // if first col has a zero
+            for (int j = 1; j < m; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;  // mark row
+                    matrix[0][j] = 0;  // mark col
+                }
+            }
+        }
+
+        // Step 2: fill matrix using the markers
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        // Step 3: handle first row
+        if (matrix[0][0] == 0) {
+            for (int j = 0; j < m; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+
+        // Step 4: handle first column
+        if (colu == 0) {
+            for (int i = 0; i < n; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+};
